@@ -14,25 +14,6 @@
     transition: background-color 0.3s, color 0.3s;
     overflow-x: hidden;
   }
-  
-  /* ADD THIS: Hide Bolt hosting button */
-  .bolt-button, 
-  [class*="bolt"], 
-  [data-bolt], 
-  iframe[src*="bolt"],
-  button[title*="Bolt"],
-  button[aria-label*="Bolt"],
-  a[href*="bolt.host"] {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      width: 0 !important;
-      height: 0 !important;
-      position: absolute !important;
-      left: -9999px !important;
-  }
-
   .progress-bar { 
     height: 10px; 
     border-radius: 6px; 
@@ -862,34 +843,6 @@
 </footer>
 
 </div> <!-- End of appContainer -->
-
-<script>
-// Remove Bolt hosting button
-function removeBoltButton() {
-    const selectors = [
-        'button[title*="Bolt"]',
-        'button[aria-label*="Bolt"]', 
-        'a[href*="bolt.host"]',
-        '.bolt-button',
-        '[class*="bolt"]',
-        'iframe[src*="bolt"]',
-        'div[class*="bolt"]'
-    ];
-    
-    selectors.forEach(selector => {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(el => {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            el.remove();
-        });
-    });
-}
-
-// Run on page load and periodically
-document.addEventListener('DOMContentLoaded', removeBoltButton);
-setInterval(removeBoltButton, 1000);
-</script>
 
 <script type="module" src="/src/main.js"></script>
 </body>
