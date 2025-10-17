@@ -14,6 +14,25 @@
     transition: background-color 0.3s, color 0.3s;
     overflow-x: hidden;
   }
+  
+  /* ADD THIS: Hide Bolt hosting button */
+  .bolt-button, 
+  [class*="bolt"], 
+  [data-bolt], 
+  iframe[src*="bolt"],
+  button[title*="Bolt"],
+  button[aria-label*="Bolt"],
+  a[href*="bolt.host"] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      left: -9999px !important;
+  }
+
   .progress-bar { 
     height: 10px; 
     border-radius: 6px; 
@@ -479,14 +498,6 @@
       break-inside: avoid;
     }
   }
-  
-  /* Added style to hide the bolt button */
-  .bolt-button-hidden {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    pointer-events: none;
-  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -696,8 +707,7 @@
     <section class="bg-white rounded-2xl shadow-md p-6 mb-8">
       <h2 class="text-xl font-semibold text-indigo-700 mb-4"><i class="fas fa-bolt mr-2"></i>Quick Actions</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- Hidden bolt button with its functionality preserved -->
-        <button class="bolt-button-hidden p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors flex items-center justify-center flex-col" data-page="study-plan">
+        <button class="p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors flex items-center justify-center flex-col" data-page="study-plan">
           <i class="fas fa-calendar-plus text-2xl text-indigo-600 mb-2"></i>
           <span class="font-semibold text-indigo-700">Create Study Plan</span>
         </button>
@@ -852,6 +862,34 @@
 </footer>
 
 </div> <!-- End of appContainer -->
+
+<script>
+// Remove Bolt hosting button
+function removeBoltButton() {
+    const selectors = [
+        'button[title*="Bolt"]',
+        'button[aria-label*="Bolt"]', 
+        'a[href*="bolt.host"]',
+        '.bolt-button',
+        '[class*="bolt"]',
+        'iframe[src*="bolt"]',
+        'div[class*="bolt"]'
+    ];
+    
+    selectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.remove();
+        });
+    });
+}
+
+// Run on page load and periodically
+document.addEventListener('DOMContentLoaded', removeBoltButton);
+setInterval(removeBoltButton, 1000);
+</script>
 
 <script type="module" src="/src/main.js"></script>
 </body>
